@@ -74,32 +74,6 @@ self.addEventListener("fetch", function (evt) {
     return;
   }
 
-  if (evt.request.url.match("/api/post/transaction")) {
-    evt.respondWith(
-      caches
-        .open(PENDING_CACHE)
-        .then((cache) => {
-          return fetch(evt.request)
-            .then((response) => {
-              // If the response was good, clone it and store it in the cache.
-              if (response.status === 200) {
-                console.log(response);
-                cache.put(evt.request.url, response.clone());
-              }
-
-              return response;
-            })
-            .catch((err) => {
-              // Network request failed, try to get it from the cache.
-              return cache.match(evt.request);
-            });
-        })
-        .catch((err) => console.log(err))
-    );
-
-    return;
-  }
-
   evt.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.match(evt.request).then((response) => {
@@ -107,27 +81,4 @@ self.addEventListener("fetch", function (evt) {
       });
     })
   );
-});
-
-// Sync
-
-self.addEventListener('sync', function (event) {
-  if (event.tag == 'syncTransactions') {
-    console.log("hit sync");
-    //event.waitUntil(doSomeStuff());
-    caches.open(PENDING_CACHE).then(async function(cache) {
-      const response = await cache.match('/api/post/transaction');
-      console.log(response);
-    })
-    // caches
-    //   .open(PENDING_CACHE).then((cache) => {
-    //     console.log(cache);
-    //     cache.keys().then(res => {
-    //       console.log(res);
-    //       res.map(name =>{
-    //         console.log(name);
-    //       })
-    //     })
-    //   })
-  }
 });
