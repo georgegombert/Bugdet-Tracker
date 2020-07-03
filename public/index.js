@@ -14,6 +14,21 @@ fetch("/api/transaction")
     populateChart();
   });
 
+  self.addEventListener('load', function(){
+    // testing for online offline listening ------------------------------------------------------------------
+    self.addEventListener('online', function(){
+      console.log('online');
+      navigator.serviceWorker.ready.then(function(swRegistration) {
+        return swRegistration.sync.register('syncTransactions');
+        });
+    });
+    
+    self.addEventListener('offline', function(){
+      console.log('offline');
+    });
+    // end test for online offline listening ------------------------------------------------------------------
+});
+
 function populateTotal() {
   // reduce transaction amounts to a single total value
   let total = transactions.reduce((total, t) => {
@@ -113,7 +128,7 @@ function sendTransaction(isAdding) {
   populateTotal();
   
   // also send to server
-  fetch("/api/transaction", {
+  fetch("/api/post/transaction", {
     method: "POST",
     body: JSON.stringify(transaction),
     headers: {
