@@ -1,6 +1,8 @@
 let transactions = [];
 let myChart;
 let db;
+
+// ---------------------------------------------- INDEXED DB START CODE -------------------------------------------
 // create a new db request for a "budget" database.
 const request = indexedDB.open("budget", 1);
 
@@ -79,12 +81,11 @@ fetch("/api/transaction")
       }
     };
   }
-  
+// ---------------------------------------------- INDEXED DB END CODE -------------------------------------------
 
 // Adding stored data to the database when app comes back online
 self.addEventListener('load', function(){
   self.addEventListener('online', function(){
-    console.log('online');
     checkDatabase();
   });
 });
