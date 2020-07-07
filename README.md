@@ -31,6 +31,6 @@
   
   ### Questions or Issues
   If you have any questions or have found issues with the program, please reach out to Budget Tracker
-  <img src="https://avatars3.githubusercontent.com/u/59551782?v=4" alt="Github Avatar" width="200"/> [Email](null)
+  <img src="https://avatars3.githubusercontent.com/u/59551782?v=4" alt="Github Avatar" width="200"/> [Email](georgegombert@gmail.com)
   ### Project Status
-  Plan currently runs as a pwa and will track expences. Next versions are planned to add more features to the app and create a more pollished user experience
+  Plan currently runs as a pwa and will track expenses. Next versions are planned to add more features to the app and create a more polished user experience
